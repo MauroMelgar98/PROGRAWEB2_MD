@@ -1,16 +1,28 @@
-//PRIMER SERVIDOR EN NODEJS
-const http = require('http');
-const servidor = http.createServer((req, res) => {
-    res.writeHead(200,{
-        "Content-Type": "application/json"
-    });
-    const estudiante = {
-        nombre: "Juan",
-        carrera: "Ingenieria en Sistemas",
-        materia: "Programacion WebII"
-    };
-    res.end(JSON.stringify(estudiante));
+const express = require('express');
+const sequelize = require('./config/database');
+const app = express();
+const Producto = require('./models/Producto');//Importamos el modelo Producto
+const productoRoutes = require('./routes/productoRoutes');
+app.use('/api', productoRoutes);
+app.use (express.json());   
+
+sequelize
+.authenticate()
+.then(() => {
+    console.log(
+        'Conexión a la base de datos establecida correctamente.');
+})
+.catch((error) => {
+    console.error(
+        'Error al conectar a la base de datos:', error);
 });
-servidor.listen(3000, () => {
-    console.log("Servidor ejecutandose en http://localhost:3000");
+app.listen(3000, () => {
+    console.log('Servidor ejecutándose en http://localhost:3000');
+});
+sequelize.sync()
+.then(() => {
+    console.log('Base de datos sincronizada correctamente.');
+})
+.catch((error) => {
+    console.error('Error al sincronizar la base de datos:', error);
 });
