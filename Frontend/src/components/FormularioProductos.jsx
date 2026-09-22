@@ -1,52 +1,66 @@
 import { useState } from "react";
 
-function FormularioProducto() {
+function FormularioProducto({agregarProducto}) { 
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
   const [stock, setStock] = useState("");
 
-  return (
-    <div className="card mb-4">
-      <div className="card-body">
-        <h4 className="mb-3">Registrar producto</h4>
+  const guardarProducto= (e) => {
+    e.preventDefault();
+    const nuevoProducto={
+        id: Date.now(),
+        nombre: nombre,
+        precio:Number(precio),
+        stock:Number(stock)
+    };
+    agregarProducto(nuevoProducto);
+    setNombre("");
+    setPrecio("");
+    setStock("");
+  }
 
-        <div className="mb-3">
-          <label className="form-label">Nombre</label>
+    return (
+      <div className="card mb-4">
+        <div className="card-body">
+          <h4 className="mb-3">Registrar producto</h4>
 
-          <input
-            type="text"
-            className="form-control"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-          />
+          <div className="mb-3">
+            <label className="form-label">Nombre</label>
+
+            <input
+              type="text"
+              className="form-control"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Precio</label>
+
+            <input
+              type="number"
+              className="form-control"
+              value={precio}
+              onChange={(e) => setPrecio(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Stock</label>
+
+            <input
+              type="number"
+              className="form-control"
+              value={stock}
+              onChange={(e) => setStock(e.target.value)}
+            />
+          </div>
+
+          <button className="btn btn-primary">Guardar producto</button>
         </div>
-
-        <div className="mb-3">
-          <label className="form-label">Precio</label>
-
-          <input
-            type="number"
-            className="form-control"
-            value={precio}
-            onChange={(e) => setPrecio(e.target.value)}
-          />
-        </div>
-
-        <div className="mb-3">
-          <label className="form-label">Stock</label>
-
-          <input
-            type="number"
-            className="form-control"
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-          />
-        </div>
-
-        <button className="btn btn-primary">Guardar producto</button>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 export default FormularioProducto;

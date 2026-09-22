@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Encabezado from "./components/Encabezado";
 import ListarProductos from "./components/ListarProductos";
-import { useState } from "react";
+import FormularioProducto from "./components/FormularioProductos";
+import Producto from "./components/Producto";
 // import Producto from "./components/Producto";
 
 function App() {
-  const productos = [ productos, setProductos] = useState([
+  const[productos, setProductos] = useState([
     {
       id: 1,
       nombre: "Lenovo Legion 5",
@@ -25,11 +26,27 @@ function App() {
       stock: 20,
     },
   ]);
+  const agregarProducto = (producto) => {
+    setProductos([...productos, producto]); 
+  };
   return (
-    <>
-      <Encabezado />
-      <ListarProductos productos={productos} />
-    </>
+    // <>
+    //   <Encabezado />
+    //   <ListarProductos productos={productos} />
+    // </>
+    <div className="container mt-4">
+      <h1 className="text-center mb-4">Sistema de Productos</h1>
+      <FormularioProducto agregarProducto={agregarProducto} />
+      <h2 className="mt-4">Lista Producto</h2>
+      {productos.map((producto) => (
+        <Producto
+          key={producto.id}
+          nombre={producto.nombre}
+          precio={producto.precio}
+          stock={producto.stock}
+        />
+      ))}
+    </div>
   );
 }
 export default App;
