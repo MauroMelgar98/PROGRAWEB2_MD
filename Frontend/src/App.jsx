@@ -1,9 +1,11 @@
+import { useState } from "react";
 import Encabezado from "./components/Encabezado";
 import ListarProductos from "./components/ListarProductos";
+import { useState } from "react";
 // import Producto from "./components/Producto";
 
 function App() {
-  const productos = [
+  const productos = [ productos, setProductos] = useState([
     {
       id: 1,
       nombre: "Lenovo Legion 5",
@@ -22,7 +24,7 @@ function App() {
       precio: 800,
       stock: 20,
     },
-  ];
+  ]);
   return (
     <>
       <Encabezado />
